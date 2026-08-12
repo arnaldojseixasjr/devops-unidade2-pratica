@@ -1,0 +1,24 @@
+name: Validacao da Atividade
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  check-contributors:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v4
+
+      - name: Validar alteração no arquivo CONTRIBUTORS.md
+        run: |
+          echo "Verificando se o arquivo CONTRIBUTORS.md existe..."
+          if [ -f "CONTRIBUTORS.md" ]; then
+              echo "Arquivo localizado com sucesso!"
+              echo "Validação concluída: O Pull Request está pronto para ser analisado no Code Review."
+          else
+              echo "Erro: O arquivo CONTRIBUTORS.md não foi encontrado!"
+              exit 1
+          fi
